@@ -30,9 +30,9 @@ If you like to set column titles use the attribute 'column_titles' like this exa
 [phpgrid table="wp_options" column_names="meta_key,meta_value" column_titles="Name,Value"]
 ```
 
-![Shortcode](https://github.com/EkAndreas/phpgrid/screenshot-1.png)
+![Shortcode](https://github.com/EkAndreas/phpgrid/blob/master/screenshot-1.png)
 
-![phpgrid](https://github.com/EkAndreas/phpgrid/screenshot-2.png)
+![phpgrid](https://github.com/EkAndreas/phpgrid/blob/master/screenshot-2.png)
 
 
 In the next version of this plugin we will provide "orderby" and "where" attributes...
