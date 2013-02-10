@@ -40,10 +40,12 @@ You could instead of shortcode use action to output the grid control, eg:
 do_action( 'phpgrid_output' );
 ?>
 ```
+The phpgrid_output is where the grid control is visible to the visitors on page.
 
 ## Filters in WordPress
 
 ### Options
+Options is used to customize the grid control in general.
 Override the grid control options with the filter 'phpgrid_options', eg:
 ```php
 <?php
@@ -56,8 +58,10 @@ function my_phpgrid_options(){
 add_filter( 'phpgrid_output', 'my_phpgrid_options' );
 ?>
 ```
+You can find more examples here: [Grid Options](http://www.phpgrid.org/docs/#grid-options)
 
 ### Table
+Table is the data source.
 Override the grid control table source with the filter 'phpgrid_table', eg:
 ```php
 <?php
@@ -67,8 +71,10 @@ function my_phpgrid_table(){
 add_filter( 'phpgrid_table', 'my_phpgrid_table' );
 ?>
 ```
+You can find more examples here: [Getting started](http://www.phpgrid.org/docs/#getting-started)
 
 ### Columns
+Columns is used to define your own column settings.
 Override the grid control column settings with the filter 'phpgrid_columns', eg:
 ```php
 <?php
@@ -83,8 +89,10 @@ function my_phpgrid_columns(){
 add_filter( 'phpgrid_columns', 'my_phpgrid_columns' );
 ?>
 ```
+You can find more examples here: [Column Options](http://www.phpgrid.org/docs/#column-options)
 
-### Columns
+### Name
+The name or id of the control when rendered on page.
 Override the grid control id name with the filter 'phpgrid_name', eg:
 ```php
 <?php
@@ -94,6 +102,8 @@ function my_phpgrid_name(){
 add_filter( 'phpgrid_name', 'my_phpgrid_name' );
 ?>
 ```
+Default name is 'phpgrid1'.
+
 
 ## Contact
 Please feel free to contact me at Twitter [@EkAndreas](https://twitter.com/ekandreas) for further questions and feedback!
