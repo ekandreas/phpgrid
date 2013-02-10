@@ -35,6 +35,12 @@ class PHPGrid_Plugin{
         // added short code for display position
         add_shortcode( "phpgrid", array( &$this, 'shortcode_phpgrid' ) );
 
+        // add a filter for the output
+        add_filter('phpgrid_output', array($this, 'phpgrid_output' ) );
+
+        // ajax
+        add_action('wp_ajax_phpgrid_data', array($this, 'phpgrid_data' ) );
+        add_action('wp_ajax_nopriv_phpgrid_data', array($this, 'phpgrid_data' ) );
     }
 
     /**
@@ -43,6 +49,12 @@ class PHPGrid_Plugin{
      */
     function phpgrid_header()
     {
+        // don't really know why this could not be split into one for header and one for ajax...
+        $this->phpgrid_data();
+    }
+
+    function phpgrid_data(){
+
         // set up DB
         $conn = mysql_connect( DB_HOST, DB_USER, DB_PASSWORD, true);
         mysql_select_db( DB_NAME );
@@ -51,6 +63,9 @@ class PHPGrid_Plugin{
         mysql_query("SET NAMES 'utf8'");
 
         $g = new jqgrid();
+
+        // now use ajax!
+        $grid["url"] = admin_url('admin-ajax.php') . '?action=phpgrid_data';
 
         // set few params
         $grid["caption"] = "wp_users";
@@ -66,6 +81,7 @@ class PHPGrid_Plugin{
 
         // render grid
         $this->global_output = $g->render("wp_users");
+
     }
 
 
@@ -99,12 +115,15 @@ class PHPGrid_Plugin{
      */
     function shortcode_phpgrid( $content )
     {
+        return $this->phpgrid_output();
+    }
+
+    /*
+     * Output the shortcode
+     */
+    function phpgrid_output()
+    {
         return $this->global_output;
     }
 
-
 }
-
-
-
-
