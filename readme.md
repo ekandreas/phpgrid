@@ -75,6 +75,7 @@ add_filter( 'phpgrid_theme_script', 'my_phpgrid_theme_script' );
 
 ### Options
 Options is used to customize the grid control in general.
+
 Override the grid control options with the filter 'phpgrid_options', eg:
 ```php
 <?php
@@ -88,6 +89,46 @@ add_filter( 'phpgrid_output', 'my_phpgrid_options' );
 ?>
 ```
 You can find more examples here: [Grid Options](http://www.phpgrid.org/docs/#grid-options)
+
+### Actions
+Actions is used to set general features to the grid control.
+
+Override the grid control actions with the filter 'phpgrid_actions', eg:
+```php
+<?php
+function my_phpgrid_actions(){
+    $actions = array(
+        "add"               => **true**, // now possible to add new records
+        "edit"              => **true**, // now possible to edit records
+        "delete"            => false,
+        "rowactions"        => false,
+        "export"            => true,
+        "autofilter"        => true,
+        "search"            => "simple",
+        "inlineadd"         => false,
+        "showhidecolumns"   => false
+    );
+    return $actions;
+}
+add_filter( 'phpgrid_actions', 'my_phpgrid_actions' );
+?>
+```
+You can find more examples under **Grid Actions** below Grid Options: [Grid Options](http://www.phpgrid.org/docs/#grid-options)
+
+Standard actions are:
+```php
+$actions = array(
+    "add"               => false,
+    "edit"              => false,
+    "delete"            => false,
+    "rowactions"        => false,
+    "export"            => true,
+    "autofilter"        => true,
+    "search"            => "simple",
+    "inlineadd"         => false,
+    "showhidecolumns"   => false
+);
+```
 
 ### Table
 Table is the data source.

@@ -4,7 +4,7 @@ Plugin Name: PHP Grid Control
 Plugin URI: http://www.phpgrid.org/
 Description: PHP Grid Control modified plugin from Abu Ghufran.
 Author: EkAndreas
-Version: 0.2
+Version: 0.3
 Author URI: http://www.flowcom.se/
 */
 
@@ -59,6 +59,7 @@ class PHPGrid_Plugin{
         // set some standard options to grid. Override this with filter 'phpgrid_options'.
         $grid["caption"] = "wp_users";
         $grid["multiselect"] = false;
+        $grid["autowidth"] = true;
 
         // fetch if filter is used otherwise use standard options
         $grid = apply_filters( 'phpgrid_options', $grid );
@@ -68,6 +69,23 @@ class PHPGrid_Plugin{
 
         // set the options
         $g->set_options( $grid );
+
+        // set actions to the grid
+        $actions = array(
+            "add"               => false,
+            "edit"              => false,
+            "delete"            => false,
+            "rowactions"        => false,
+            "export"            => true,
+            "autofilter"        => true,
+            "search"            => "simple",
+            "inlineadd"         => false,
+            "showhidecolumns"   => false
+        );
+
+        // open actions for filters
+        $actions = apply_filters( 'phpgrid_actions', $actions );
+        $g->set_actions( $actions );
 
         // set database table for CRUD operations, override with filter 'phpgrid_table'.
         $table = 'wp_users';
