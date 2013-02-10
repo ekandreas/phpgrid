@@ -12,7 +12,7 @@ Place the code inside the plugin folder as usual installation of WordPress plugi
 The folder should be named "phpgrid".
 
 ## Configuration
-* Really important that you put a custom action 'phpgrid_header' in your theme "header.php" -file. Eg,
+**Important that you put a custom action 'phpgrid_header' in your theme "header.php" -file.** Eg,
 ```php
 <?php
 // This is the custom action needed
@@ -30,7 +30,8 @@ do_action( 'phpgrid_header' );
 ?><!DOCTYPE html>
 ```
 
-* Place a shortcode [phpgrid] in your post or page HTML-editor and the grid with wp_users should be listed in the frontend.
+Place a shortcode [phpgrid] in your post or page HTML-editor and the grid with wp_users should be listed in the frontend.
+
 
 ## Actions in WordPress
 You could instead of shortcode use action to output the grid control, eg:
@@ -62,6 +63,7 @@ You can find more examples here: [Grid Options](http://www.phpgrid.org/docs/#gri
 
 ### Table
 Table is the data source.
+**Note!** To use arrays you have to use the paid professional version of phpgrid control! Just replace the files under the 'lib' folder to upgrade.
 Override the grid control table source with the filter 'phpgrid_table', eg:
 ```php
 <?php
