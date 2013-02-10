@@ -4,7 +4,7 @@ Plugin Name: PHP Grid Control
 Plugin URI: http://www.phpgrid.org/
 Description: PHP Grid Control modified plugin from Abu Ghufran.
 Author: EkAndreas
-Version: 0.1
+Version: 0.2
 Author URI: http://www.flowcom.se/
 */
 
@@ -19,7 +19,7 @@ $phpgrid_plugin = new PHPGrid_Plugin();
  */
 class PHPGrid_Plugin{
 
-    private $global_output;
+    private $phpgrid_output;
 
     /**
      * Activates actions
@@ -35,12 +35,12 @@ class PHPGrid_Plugin{
         // added short code for display position
         add_shortcode( "phpgrid", array( &$this, 'shortcode_phpgrid' ) );
 
-        // add a filter for the output
-        add_filter('phpgrid_output', array($this, 'phpgrid_output' ) );
+        // add an action for the output
+        add_action('phpgrid_output', array($this, 'phpgrid_output' ) );
 
         // ajax
-        add_action('wp_ajax_phpgrid_data', array($this, 'phpgrid_data' ) );
-        add_action('wp_ajax_nopriv_phpgrid_data', array($this, 'phpgrid_data' ) );
+        add_action('wp_ajax_phpgrid_data', array($this, 'phpgrid_header' ) );
+        add_action('wp_ajax_nopriv_phpgrid_data', array($this, 'phpgrid_header' ) );
     }
 
     /**
@@ -49,41 +49,41 @@ class PHPGrid_Plugin{
      */
     function phpgrid_header()
     {
-        // don't really know why this could not be split into one for header and one for ajax...
-        $this->phpgrid_data();
-    }
 
-    function phpgrid_data(){
+        // possible hook on custom sql connection - if not used standard wp databas is used
+        do_action( 'phpgrid_sql_connection' );
 
-        // set up DB
-        $conn = mysql_connect( DB_HOST, DB_USER, DB_PASSWORD, true);
-        mysql_select_db( DB_NAME );
-
-        // set your db encoding -- for ascent chars (if required)
-        mysql_query("SET NAMES 'utf8'");
-
+        // init the grid control
         $g = new jqgrid();
 
-        // now use ajax!
-        $grid["url"] = admin_url('admin-ajax.php') . '?action=phpgrid_data';
-
-        // set few params
+        // set some standard options to grid. Override this with filter 'phpgrid_options'.
         $grid["caption"] = "wp_users";
         $grid["multiselect"] = false;
 
-        $g->set_options($grid);
+        // fetch if filter is used otherwise use standard options
+        $grid = apply_filters( 'phpgrid_options', $grid );
 
-        // set database table for CRUD operations
-        $g->table = "wp_users";
+        // now use ajax! this is a wp override!
+        $grid["url"] = admin_url( 'admin-ajax.php' ) . '?action=phpgrid_data';
+
+        // set the options
+        $g->set_options( $grid );
+
+        // set database table for CRUD operations, override with filter 'phpgrid_table'.
+        $table = 'wp_users';
+        $g->table = apply_filters( 'phpgrid_table', $table );
+
+        // set columns, override with filter 'phpgrid_columns'.
+        $columns = array();
+        $g->set_columns( apply_filters( 'phpgrid_columns', $columns ) );
 
         // subqueries are also supported now (v1.2)
         // $g->select_command = "select * from (select * from invheader) as o";
 
-        // render grid
-        $this->global_output = $g->render("wp_users");
+        // render grid, possible to override the name with filter 'phpgrid_name'.
+        $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
 
     }
-
 
     /**
      * Register styles and scripts. The scripts are placed in the footer for compability issues.
@@ -115,7 +115,7 @@ class PHPGrid_Plugin{
      */
     function shortcode_phpgrid( $content )
     {
-        return $this->phpgrid_output();
+        return $this->phpgrid_output;
     }
 
     /*
@@ -123,7 +123,7 @@ class PHPGrid_Plugin{
      */
     function phpgrid_output()
     {
-        return $this->global_output;
+        echo $this->phpgrid_output;
     }
 
 }
