@@ -4,7 +4,7 @@ Plugin Name: PHP Grid Control
 Plugin URI: http://www.phpgrid.org/
 Description: PHP Grid Control modified plugin from Abu Ghufran.
 Author: EkAndreas
-Version: 0.3
+Version: 0.4
 Author URI: http://www.flowcom.se/
 */
 
@@ -26,8 +26,8 @@ class PHPGrid_Plugin{
      */
     function __construct(){
 
-        // load core lib
-        add_action( "phpgrid_header", array( &$this, 'phpgrid_header' ) );
+        // load core lib at template_redirect because we need the post data!
+        add_action( "template_redirect", array( &$this, 'phpgrid_header' ) );
 
         // load js and css files
         add_action( "wp_enqueue_scripts", array( &$this, 'wp_enqueue_scripts' ) );
@@ -49,15 +49,69 @@ class PHPGrid_Plugin{
      */
     function phpgrid_header()
     {
+        global $post;
 
-        // possible hook on custom sql connection - if not used standard wp databas is used
+        $grid_columns = array();
+        $grid = array();
+
+        // set database table for CRUD operations, override with filter 'phpgrid_table'.
+        $table = 'wp_posts';
+
+        // possible hook on custom sql connection - if not used standard wp database is used
         do_action( 'phpgrid_sql_connection' );
 
         // init the grid control
         $g = new jqgrid();
 
+        // first, check if shortcode is used!
+        $pattern = get_shortcode_regex();
+        if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )
+            && array_key_exists( 2, $matches )
+            && in_array( 'phpgrid', $matches[2] ) )
+        {
+
+            $column_names = array();
+            $column_titles = array();
+
+            // loop through all attributes to check for the right one!
+            foreach( $matches[3] as $attributes ){
+
+                $table = $this->get_attribute( $attributes, 'table', $table );
+                $column_names = $this->get_attribute( $attributes, 'column_names', $grid_columns );
+                $column_titles = $this->get_attribute( $attributes, 'column_titles', $grid_columns );
+
+            }
+
+
+            if ( !is_array( $column_names ) ) {
+
+                $cols = array();
+
+                $colnames_arr = explode( ",", $column_names );
+                $coltitles = explode( ",", $column_titles );
+
+                foreach( $colnames_arr as $key => $column ){
+
+                    $col = array();
+                    $col["name"] = $column;
+
+                    if ( $coltitles[$key] ) $col["title"] = $coltitles[$key]; // caption of column
+
+                    $cols[] = $col;
+
+                }
+
+                $grid_columns = $cols;
+            }
+
+        }
+
+        if ( isset( $_REQUEST['phpgrid_table'] ) ) $table = esc_attr( $_REQUEST['phpgrid_table'] );
+
+        $g->table = apply_filters( 'phpgrid_table', $table );
+
         // set some standard options to grid. Override this with filter 'phpgrid_options'.
-        $grid["caption"] = "wp_users";
+        $grid["caption"] = $table;
         $grid["multiselect"] = false;
         $grid["autowidth"] = true;
 
@@ -65,7 +119,7 @@ class PHPGrid_Plugin{
         $grid = apply_filters( 'phpgrid_options', $grid );
 
         // now use ajax! this is a wp override!
-        $grid["url"] = admin_url( 'admin-ajax.php' ) . '?action=phpgrid_data';
+        $grid["url"] = admin_url( 'admin-ajax.php' ) . '?action=phpgrid_data&phpgrid_table=' . $table;
 
         // set the options
         $g->set_options( $grid );
@@ -87,13 +141,8 @@ class PHPGrid_Plugin{
         $actions = apply_filters( 'phpgrid_actions', $actions );
         $g->set_actions( $actions );
 
-        // set database table for CRUD operations, override with filter 'phpgrid_table'.
-        $table = 'wp_users';
-        $g->table = apply_filters( 'phpgrid_table', $table );
-
-        // set columns, override with filter 'phpgrid_columns'.
-        $columns = array();
-        $g->set_columns( apply_filters( 'phpgrid_columns', $columns ) );
+        // set columns with filter
+        $g->set_columns( apply_filters( 'phpgrid_columns', $grid_columns ) );
 
         // subqueries are also supported now (v1.2)
         // $g->select_command = "select * from (select * from invheader) as o";
@@ -148,4 +197,16 @@ class PHPGrid_Plugin{
         echo $this->phpgrid_output;
     }
 
+    function get_attribute( $all_attributes, $attribute, $default ){
+
+        $result = $default;
+
+        preg_match( '/' . $attribute . '="([^"]*)"/', $all_attributes, $attr );
+        if ( !empty( $attr[1] ) ) {
+            $result = $attr[1];
+        }
+
+        return $result;
+
+    }
 }
