@@ -160,7 +160,7 @@ class PHPGrid_Plugin{
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-core' );
 
-        $theme = apply_filters( 'phpgrid_theme', 'smoothness' );
+        $theme = apply_filters( 'phpgrid_theme', 'redmond' );
         $theme_script = apply_filters( 'phpgrid_theme_script', WP_PLUGIN_URL . '/phpgrid/lib/js/themes/' . $theme . '/jquery-ui.custom.css' );
         wp_register_style( 'phpgrid_theme', $theme_script );
         wp_enqueue_style( 'phpgrid_theme' );
