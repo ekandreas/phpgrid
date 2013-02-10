@@ -98,8 +98,8 @@ Override the grid control actions with the filter 'phpgrid_actions', eg:
 <?php
 function my_phpgrid_actions(){
     $actions = array(
-        "add"               => **true**, // now possible to add new records
-        "edit"              => **true**, // now possible to edit records
+        "add"               => true, // now possible to add new records
+        "edit"              => true, // now possible to edit records
         "delete"            => false,
         "rowactions"        => false,
         "export"            => true,
