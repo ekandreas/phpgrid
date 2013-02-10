@@ -45,6 +45,34 @@ The phpgrid_output is where the grid control is visible to the visitors on page.
 
 ## Filters in WordPress
 
+### Themes
+Provide the control with another look via different jquery-ui roller themes!
+
+There are two different filters to use for managing the theme; 'phpgrid_theme' for just changing to one of the provided themes and 'phpgrid_theme_script' to change the loaded jquery-ui roller theme file.
+
+#### phpgrid_theme
+You could set the theme name via the 'phpgrid_theme' filter, eg:
+```php
+<?php
+function my_phpgrid_theme(){
+    return 'redmond';
+}
+add_filter( 'phpgrid_theme', 'my_phpgrid_theme' );
+?>
+```
+Standard is 'smothness'. You can find more examples here: [Grid Options](http://www.phpgrid.org/docs/#grid-options)
+
+#### phpgrid_theme_script
+You could set the theme script via the 'phpgrid_theme_script' filter, eg:
+```php
+<?php
+function my_phpgrid_theme_script(){
+    return get_stylesheet_directory_uri() . '/css/my-very-own-roller-script.js';
+}
+add_filter( 'phpgrid_theme_script', 'my_phpgrid_theme_script' );
+?>
+```
+
 ### Options
 Options is used to customize the grid control in general.
 Override the grid control options with the filter 'phpgrid_options', eg:
@@ -64,6 +92,7 @@ You can find more examples here: [Grid Options](http://www.phpgrid.org/docs/#gri
 ### Table
 Table is the data source.
 **Note!** To use arrays you have to use the paid professional version of phpgrid control! Just replace the files under the 'lib' folder to upgrade.
+
 Override the grid control table source with the filter 'phpgrid_table', eg:
 ```php
 <?php
@@ -105,6 +134,34 @@ add_filter( 'phpgrid_name', 'my_phpgrid_name' );
 ?>
 ```
 Default name is 'phpgrid1'.
+
+### Localization
+Provide the control with localization support!
+
+There are two different filters to use for managing the localization; 'phpgrid_lang' for just changing to one of the provided languages and 'phpgrid_lang_script' to change the loaded localization script.
+
+#### phpgrid_lang
+You could set the theme name via the 'phpgrid_lang' filter, eg:
+```php
+<?php
+function my_phpgrid_lang(){
+    return 'sv'; // for swedish language in the control.
+}
+add_filter( 'phpgrid_lang', 'my_phpgrid_lang' );
+?>
+```
+
+#### phpgrid_lang_script
+You could set the theme script via the 'phpgrid_lang_script' filter, eg:
+```php
+<?php
+function my_phpgrid_lang_script(){
+    return get_stylesheet_directory_uri() . '/js/my-very-own-lang-script.js';
+}
+add_filter( 'phpgrid_lang_script', 'my_phpgrid_lang_script' );
+?>
+```
+You can find more examples here: [Localization](http://www.phpgrid.org/docs/#localization)
 
 
 ## Contact

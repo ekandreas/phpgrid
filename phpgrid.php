@@ -93,13 +93,17 @@ class PHPGrid_Plugin{
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-core' );
 
-        wp_register_style( 'phpgrid_theme', WP_PLUGIN_URL . '/phpgrid/lib/js/themes/redmond/jquery-ui.custom.css' );
+        $theme = apply_filters( 'phpgrid_theme', 'smoothness' );
+        $theme_script = apply_filters( 'phpgrid_theme_script', WP_PLUGIN_URL . '/phpgrid/lib/js/themes/' . $theme . '/jquery-ui.custom.css' );
+        wp_register_style( 'phpgrid_theme', $theme_script );
         wp_enqueue_style( 'phpgrid_theme' );
 
         wp_register_style( 'jqgrid_css', WP_PLUGIN_URL . '/phpgrid/lib/js/jqgrid/css/ui.jqgrid.css' );
         wp_enqueue_style( 'jqgrid_css' );
 
-        wp_register_script( 'jqgrid_localization', WP_PLUGIN_URL . '/phpgrid/lib/js/jqgrid/js/i18n/grid.locale-en.js', array('jquery'), false, true);
+        $lang = apply_filters( 'phpgrid_lang', 'en' );
+        $localization = apply_filters( 'phpgrid_lang_script', WP_PLUGIN_URL . '/phpgrid/lib/js/jqgrid/js/i18n/grid.locale-' . $lang . '.js' );
+        wp_register_script( 'jqgrid_localization', $localization, array('jquery'), false, true);
         wp_enqueue_script( 'jqgrid_localization' );
 
         wp_register_script( 'jqgrid', WP_PLUGIN_URL . '/phpgrid/lib/js/jqgrid/js/jquery.jqGrid.min.js', array('jquery'), false, true);
