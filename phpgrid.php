@@ -152,12 +152,7 @@ class PHPGrid_Plugin{
         // $g->select_command = "select * from (select * from invheader) as o";
 
         // render grid, possible to override the name with filter 'phpgrid_name'.
-        try {
-            $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
-        }
-        catch (Exception $e) {
-        }
-
+        $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
 
     }
 
