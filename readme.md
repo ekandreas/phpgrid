@@ -14,7 +14,7 @@ The folder should be named "phpgrid".
 Place a shortcode [phpgrid table="wp_posts"] in your post or page HTML-editor and the grid with posts should be listed in the frontend.
 
 ## Shortcode
-You have to use the attribute 'table' to assign an existin database table. Eg,
+You have to use the attribute 'table' to assign an existing database table. Eg,
 ```text
 [phpgrid table="wp_options"]
 ```
