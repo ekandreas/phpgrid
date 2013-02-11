@@ -4,7 +4,7 @@ Plugin Name: PHP Grid Control
 Plugin URI: http://www.phpgrid.org/
 Description: PHP Grid Control modified plugin from Abu Ghufran.
 Author: EkAndreas
-Version: 0.4
+Version: 0.5
 Author URI: http://www.flowcom.se/
 */
 
@@ -55,7 +55,7 @@ class PHPGrid_Plugin{
         $grid = array();
 
         // set database table for CRUD operations, override with filter 'phpgrid_table'.
-        $table = 'wp_posts';
+        $table = '';
 
         // possible hook on custom sql connection - if not used standard wp database is used
         do_action( 'phpgrid_sql_connection' );
@@ -108,7 +108,11 @@ class PHPGrid_Plugin{
 
         if ( isset( $_REQUEST['phpgrid_table'] ) ) $table = esc_attr( $_REQUEST['phpgrid_table'] );
 
-        $g->table = apply_filters( 'phpgrid_table', $table );
+        $table = apply_filters( 'phpgrid_table', $table );
+
+        if ( empty( $table ) ) return;
+
+        $g->table = $table;
 
         // set some standard options to grid. Override this with filter 'phpgrid_options'.
         $grid["caption"] = $table;
@@ -148,7 +152,12 @@ class PHPGrid_Plugin{
         // $g->select_command = "select * from (select * from invheader) as o";
 
         // render grid, possible to override the name with filter 'phpgrid_name'.
-        $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
+        try {
+            $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
+        }
+        catch (Exception $e) {
+        }
+
 
     }
 

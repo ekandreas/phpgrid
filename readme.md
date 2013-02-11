@@ -3,7 +3,6 @@
 This WordPress plugin is copied from Abu Ghufran and improved by Andreas Ek.
 
 We have just started with this plugin development. At a start just showing an example of the php grid control / free version.
-The shortcode shows the table wp_posts from shortcode to demonstrate the grid control in action.
 
 For more information about the php grid control, go to [www.phpgrid.org](www.phpgrid.org)
 
@@ -12,10 +11,10 @@ Place the code inside the plugin folder as usual installation of WordPress plugi
 The folder should be named "phpgrid".
 
 ## Configuration
-Place a shortcode [phpgrid] in your post or page HTML-editor and the grid with wp_users should be listed in the frontend.
+Place a shortcode [phpgrid table="wp_posts"] in your post or page HTML-editor and the grid with posts should be listed in the frontend.
 
 ## Shortcode
-If you use the shortcode [phpgrid] the standard table 'wp_posts' is exposed as an example. To change table set the attribute 'table' inside the shortcode. Eg,
+You have to use the attribute 'table' to assign an existin database table. Eg,
 ```text
 [phpgrid table="wp_options"]
 ```
