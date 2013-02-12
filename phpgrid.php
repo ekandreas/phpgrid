@@ -51,6 +51,8 @@ class PHPGrid_Plugin{
     {
         global $post;
 
+        //if (!is_page()) return;
+
         $grid_columns = array();
         $grid = array();
 
@@ -162,7 +164,7 @@ class PHPGrid_Plugin{
     function wp_enqueue_scripts()
     {
         wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( 'jquery-ui-core' );
+        //wp_enqueue_script( 'jquery-ui-core' );
 
         $theme = apply_filters( 'phpgrid_theme', 'redmond' );
         $theme_script = apply_filters( 'phpgrid_theme_script', WP_PLUGIN_URL . '/phpgrid/lib/js/themes/' . $theme . '/jquery-ui.custom.css' );
