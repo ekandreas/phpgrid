@@ -25,5 +25,4 @@ Download the free (or your paid) -version of phpgrid.org and place the lib folde
 
 == Screenshots ==
 1. Shortcode inside your post html editor.
-
 2. Example of exposed table \"wp_options\".
