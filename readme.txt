@@ -20,6 +20,9 @@ More info at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "
 == Installation ==
 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
+
+Download the free (or your paid) -version of phpgrid.org and place the lib folder under the plugin folder! Due to license rules we do not have the rights to provide you with the component.
+
 == Screenshots ==
 1. Shortcode inside your post html editor.
 

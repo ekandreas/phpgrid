@@ -7,8 +7,10 @@ We have just started with this plugin development. At a start just showing an ex
 Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
 
 ## Installation
-Place the code inside the plugin folder as usual installation of WordPress plugins.
+1. Place the code inside the plugin folder as usual installation of WordPress plugins.
 The folder should be named "phpgrid".
+
+2. Download the free (or your paid) -version of phpgrid.org and place the lib folder under the plugin folder! Due to license rules we do not have the rights to provide you with the component.
 
 ## Configuration
 Place a shortcode [phpgrid table="wp_posts"] in your post or page HTML-editor and the grid with posts should be listed in the frontend.
