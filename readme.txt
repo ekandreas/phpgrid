@@ -17,6 +17,8 @@ Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/4864097
 
 More info at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "phpgrid")
 
+Note! You have to download phpgrid.org separately!
+
 == Installation ==
 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
@@ -24,5 +26,11 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 Download the free (or your paid) -version of phpgrid.org and place the lib folder under the plugin folder! Due to license rules we do not have the rights to provide you with the component.
 
 == Screenshots ==
+
 1. Shortcode inside your post html editor.
-2. Example of exposed table \"wp_options\".
+2. Example of exposed table wp_options.
+3. Or way better, use it as a global component in your projects with hooks and filters. All described in the Github repo!
+
+== Changelog ==
+= 0.5 =
+* Initial
