@@ -4,7 +4,7 @@ This WordPress plugin is copied from Abu Ghufran and improved by Andreas Ek.
 
 We have just started with this plugin development. At a start just showing an example of the php grid control / free version.
 
-For more information about the php grid control, go to [www.phpgrid.org](www.phpgrid.org)
+Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
 
 ## Installation
 Place the code inside the plugin folder as usual installation of WordPress plugins.

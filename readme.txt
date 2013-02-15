@@ -3,7 +3,7 @@ Contributors: EkAndreas
 Tags: phpgrid,datatable,frontend,ajax,plugin,database
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 0.4
+Stable tag: 0.5
 
 Expose database table with shortcodes and phpgrid free.
 
@@ -13,7 +13,9 @@ The plugin implements the free phpgrid control with usage of shortcodes inside y
 
 Or you could use the plugin inside your plugin development just by using filters and hooks.
 
-Please, read more at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "phpgrid")
+Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
+
+More info at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "phpgrid")
 
 == Installation ==
 
