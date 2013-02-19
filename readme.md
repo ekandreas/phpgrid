@@ -216,3 +216,22 @@ add_filter( 'phpgrid_lang_script', 'my_phpgrid_lang_script' );
 ?>
 ```
 You can find more examples here: [Localization](http://www.phpgrid.org/docs/#localization)
+
+##### Set another sql connection
+(New in version 0.5.1)
+
+Change the database connection for the grid via hook "phpgrid_sql_connection", eg:
+```php
+<?php
+function my_mysql_connection() {
+    mysql_connect( DB_HOST, DB_USER, DB_PASSWORD, true );
+    mysql_select_db( DB_NAME );
+    return;
+}
+add_action( 'phpgrid_sql_connection', 'my_mysql_connection' );
+?>
+```
+
+
+
+
