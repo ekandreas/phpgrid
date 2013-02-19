@@ -8,6 +8,9 @@ For more information about the php grid control, go to [www.phpgrid.org](www.php
 
 Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
 
+![Shortcode](https://raw.github.com/EkAndreas/phpgrid/master/screenshot-4.jpg)
+
+
 ## Installation
 1. Place the code inside the plugin folder as usual installation of WordPress plugins. The folder should be named "phpgrid".
 

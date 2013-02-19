@@ -30,6 +30,8 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 
 3. Supporting hooks and filters
 
+4. Implementation example, wp_options
+
 == Changelog ==
 = 0.5.2 =
 * sql connection with filter 'phpgrid_connection', read more at Github!
