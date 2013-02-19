@@ -259,6 +259,7 @@ Read more about ADODB-connections at [phpgrid.org](http://www.phpgrid.org/docs/#
 If you are using the grid in several places with different lookups you could implement a switch. This is how I solved it in my WordPress example:
 ```php
 // add action to control on which page template we use at the moment
+// note the prio before 10!
 add_action( 'template_redirect', 'my_phpgrid_switch', 9 );
 
 // our switch function to decide table and connection
