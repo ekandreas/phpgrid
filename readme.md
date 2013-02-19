@@ -4,11 +4,12 @@ This WordPress plugin is copied from Abu Ghufran and improved by Andreas Ek.
 
 We have just started with this plugin development. At a start just showing an example of the php grid control / free version.
 
+For more information about the php grid control, go to [www.phpgrid.org](www.phpgrid.org)
+
 Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
 
 ## Installation
-1. Place the code inside the plugin folder as usual installation of WordPress plugins.
-The folder should be named "phpgrid".
+1. Place the code inside the plugin folder as usual installation of WordPress plugins. The folder should be named "phpgrid".
 
 2. Download the free (or your paid) -version of phpgrid.org and place the lib folder under the plugin folder! Due to license rules we do not have the rights to provide you with the component.
 

@@ -4,7 +4,7 @@ Plugin Name: PHP Grid Control
 Plugin URI: http://www.phpgrid.org/
 Description: PHP Grid Control modified plugin from Abu Ghufran.
 Author: EkAndreas
-Version: 0.5
+Version: 0.5.1
 Author URI: http://www.flowcom.se/
 */
 
@@ -155,6 +155,10 @@ class PHPGrid_Plugin{
 
         // render grid, possible to override the name with filter 'phpgrid_name'.
         $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
+
+        //Now, put mysql back to WP!
+        mysql_connect( DB_HOST, DB_USER, DB_PASSWORD, true );
+        mysql_select_db( DB_NAME );
 
     }
 
