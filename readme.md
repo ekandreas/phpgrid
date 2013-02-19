@@ -58,6 +58,11 @@ The phpgrid_output is where the grid control is visible to the visitors on page.
 
 ### Filters in WordPress
 
+Place the filters in your theme or plugin. Eg, function.php
+
+If you use several grids then create a switch that makes the right values to your grid in the right situation! You can take a look at the example below.
+
+
 #### Themes
 Provide the control with another look via different jquery-ui roller themes!
 
@@ -218,20 +223,87 @@ add_filter( 'phpgrid_lang_script', 'my_phpgrid_lang_script' );
 You can find more examples here: [Localization](http://www.phpgrid.org/docs/#localization)
 
 ##### Set another sql connection
-(New in version 0.5.1)
+(New in version 0.5.2)
 
-Change the database connection for the grid via hook "phpgrid_sql_connection", eg:
+Change the database connection for the grid via hook "phpgrid_connection", eg:
 ```php
 <?php
-function my_mysql_connection() {
-    mysql_connect( DB_HOST, DB_USER, DB_PASSWORD, true );
-    mysql_select_db( DB_NAME );
-    return;
+// add a filter and connect it to your function
+add_filter( 'phpgrid_table', 'my_phpgrid_table' );
+
+// return the database and table you like to connect to
+function my_phpgrid_table(){
+    return 'mydatabase.mytablename';
 }
-add_action( 'phpgrid_sql_connection', 'my_mysql_connection' );
+
+// add filter for the grids connection filter
+add_filter( 'phpgrid_connection', 'my_phpgrid_connection' );
+
+// return an array with the connection data
+function my_phpgrid_connection(){
+    $db_conf = array();
+    $db_conf["type"]        = 'mysql'; // mysql,oci8(for oracle),mssql,postgres,sybase
+    $db_conf["server"]      = 'localhost';
+    $db_conf["user"]        = 'root';
+    $db_conf["password"]    = 'pass';
+    $db_conf["database"]    = 'database';
+    return $db_conf;
+}
+?>
+```
+Read more about ADODB-connections at [phpgrid.org](http://www.phpgrid.org/docs/#adodb)
+
+##### Switch example for several grids
+If you are using the grid in several places with different lookups you could implement a switch. This is how I solved it in my WordPress example:
+```php
+// add action to control on which page template we use at the moment
+add_action( 'template_redirect', 'my_phpgrid_switch', 9 );
+
+// our switch function to decide table and connection
+function my_phpgrid_switch(){
+
+    // check if the template on this page contains our file name
+    if ( strstr( get_page_template(), 'phpgrid-connection.php' ) ){
+
+        // add a filter and connect it to your function
+        add_filter( 'phpgrid_table', 'my_phpgrid_table_external' );
+
+        // add filter for the grids connection filter
+        add_filter( 'phpgrid_connection', 'my_phpgrid_connection' );
+
+    }
+    else{
+
+        // add filter for the grids connection filter
+        add_filter( 'phpgrid_table', 'my_phpgrid_table_normal' );
+
+    }
+
+}
+
+// return the table name
+function my_phpgrid_table_normal(){
+    return 'wp_posts';
+}
+
+// return the database and table you like to connect to
+function my_phpgrid_table_external(){
+    return 'mydatabasename.mytablename';
+}
+
+
+// return an array with the connection data
+function my_phpgrid_connection(){
+    $db_conf = array();
+    $db_conf["type"]        = 'mysql'; // mysql,oci8(for oracle),mssql,postgres,sybase
+    $db_conf["server"]      = 'localhost';
+    $db_conf["user"]        = 'root';
+    $db_conf["password"]    = 'pass';
+    $db_conf["database"]    = 'my-database-name';
+    return $db_conf;
+}
 ?>
 ```
 
 
-
-
+Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!

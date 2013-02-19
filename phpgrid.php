@@ -59,11 +59,13 @@ class PHPGrid_Plugin{
         // set database table for CRUD operations, override with filter 'phpgrid_table'.
         $table = '';
 
-        // possible hook on custom sql connection - if not used standard wp database is used
-        do_action( 'phpgrid_sql_connection' );
-
-        // init the grid control
         $g = new jqgrid();
+
+        $db_conf = apply_filters( 'phpgrid_connection', '' );
+
+        if ( is_array( $db_conf ) ){
+            $g = new jqgrid( $db_conf );
+        }
 
         // first, check if shortcode is used!
         $pattern = get_shortcode_regex();
@@ -155,10 +157,6 @@ class PHPGrid_Plugin{
 
         // render grid, possible to override the name with filter 'phpgrid_name'.
         $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
-
-        //Now, put mysql back to WP!
-        mysql_connect( DB_HOST, DB_USER, DB_PASSWORD, true );
-        mysql_select_db( DB_NAME );
 
     }
 

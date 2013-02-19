@@ -3,7 +3,7 @@ Contributors: EkAndreas
 Tags: phpgrid,datatable,frontend,ajax,plugin,database
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 0.5.1
+Stable tag: 0.5.2
 
 Expose database table with shortcodes and phpgrid free.
 
@@ -31,6 +31,9 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 3. Supporting hooks and filters
 
 == Changelog ==
+= 0.5.2 =
+* sql connection with filter 'phpgrid_connection', read more at Github!
+
 = 0.5.1 =
 * mysql-connection supported with hook
 
