@@ -32,9 +32,9 @@ If you like to set column titles use the attribute 'column_titles' like this exa
 [phpgrid table="wp_options" column_names="meta_key,meta_value" column_titles="Name,Value"]
 ```
 
-![Shortcode](https://raw.github.com/EkAndreas/phpgrid/master/screenshot-1.png)
+![Shortcode](https://raw.github.com/EkAndreas/phpgrid/master/screenshot-1.jpg)
 
-![phpgrid](https://raw.github.com/EkAndreas/phpgrid/master/screenshot-2.png)
+![phpgrid](https://raw.github.com/EkAndreas/phpgrid/master/screenshot-2.jpg)
 
 
 In the next version of this plugin we will provide "orderby" and "where" attributes...
@@ -45,6 +45,8 @@ Please feel free to contact me at Twitter [@EkAndreas](https://twitter.com/ekand
 
 ## Advanced usage
 If you want to use the control as integrated with your plugin development, use actions and filters as below.
+
+![filters](https://raw.github.com/EkAndreas/phpgrid/master/screenshot-3.jpg)
 
 ### Actions in WordPress
 You could, instead of shortcode, use action to output the grid control, eg:
@@ -60,7 +62,7 @@ The phpgrid_output is where the grid control is visible to the visitors on page.
 
 Place the filters in your theme or plugin. Eg, function.php
 
-If you use several grids then create a switch that makes the right values to your grid in the right situation! You can take a look at the example below.
+If you use several grids then [create a switch](#switch-example-for-several-grids) that makes the right values to your grid in the right situation!
 
 
 #### Themes
