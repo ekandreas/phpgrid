@@ -3,7 +3,7 @@ Contributors: EkAndreas
 Tags: phpgrid, datatable, frontend, ajax, plugin, database, table, frontend, datagrid, mysql, mssql, postgress, shortcode
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 0.5.2
+Stable tag: 0.5.3
 
 Expose database table with shortcodes and phpgrid.org.
 
@@ -20,11 +20,12 @@ Some of the features are:
 * Sorting
 * Add, delete, create data
 * Pagination
-* Custom output format to data as images, colors or whatever you want.
+* Custom output format to data as images, colors or whatever you want
 * Themes
 * Connection to mysql, postgress, mssql or arrays
 * Export to PDF or Excel
 * Master and detail grids
+* Works in common browsers as IE8-10, Firefox, Chrome and Safari
 * ...
 
 Read more about all the features to phpgrid [here](http://www.phpgrid.org/features/)!
@@ -34,8 +35,47 @@ We are currently using this plugin as a base component to other plugin developme
 Join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
 
 If you are a programmer:
-
 Please, read more at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "phpgrid")
+
+*Shortcodes*
+You have to use the attribute 'table' to assign an existing database table. Eg,
+```text
+[phpgrid table="wp_options"]
+```
+
+*Optional shortcode attributes*
+Set columns use with the attribute 'columns' as in this example:
+```text
+[phpgrid table="wp_options" columns="option_name,option_value"]
+```
+
+If you like to set column titles use the attribute 'titles', eg:
+```text
+[phpgrid table="wp_options" columns="option_name,option_value" titles="Name,Value"]
+```
+
+Set the caption to the grid with the attribute 'caption', eg:
+```text
+[phpgrid table="wp_options" caption="OPTIONS" columns="option_name,option_value" titles="Name,Value"]
+```
+
+Hide columns with the 'hidden' parameter (separate column names with commas), eg:
+```text
+[phpgrid table="wp_options" hidden="option_id"]
+```
+
+Enable expoprt to excel via parameter 'export', eg:
+```text
+[phpgrid table="wp_options" export="true"]
+```
+
+Change localization with the parameter 'language', eg:
+```text
+[phpgrid table="wp_options" language="sv"]
+```
+The example above will show functions for a swedish grid.
+Supported languages: [Localization](http://www.phpgrid.org/docs/#localization)
+
 
 == Installation ==
 1. Place the code inside the plugin folder as usual installation of WordPress plugins. The folder should be named "phpgrid".
@@ -54,6 +94,10 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 4. Implementation example, wp_options
 
 == Changelog ==
+= 0.5.3 =
+* easier column names and titles
+* ajax optimization
+
 = 0.5.2 =
 * sql connection with filter 'phpgrid_connection', read more at Github!
 

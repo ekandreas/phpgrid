@@ -25,15 +25,39 @@ You have to use the attribute 'table' to assign an existing database table. Eg,
 [phpgrid table="wp_options"]
 ```
 
-If you like to set columns use the attribute 'column_names' like this example:
+### Optional shortcode attributes
+Set columns use with the attribute 'columns' as in this example:
 ```text
-[phpgrid table="wp_options" column_names="meta_key,meta_value"]
+[phpgrid table="wp_options" columns="option_name,option_value"]
 ```
 
-If you like to set column titles use the attribute 'column_titles' like this example:
+If you like to set column titles use the attribute 'titles', eg:
 ```text
-[phpgrid table="wp_options" column_names="meta_key,meta_value" column_titles="Name,Value"]
+[phpgrid table="wp_options" columns="option_name,option_value" titles="Name,Value"]
 ```
+
+Set the caption to the grid with the attribute 'caption', eg:
+```text
+[phpgrid table="wp_options" caption="OPTIONS" columns="option_name,option_value" titles="Name,Value"]
+```
+
+Hide columns with the 'hidden' parameter (separate column names with commas), eg:
+```text
+[phpgrid table="wp_options" hidden="option_id"]
+```
+
+Enable expoprt to excel via parameter 'export', eg:
+```text
+[phpgrid table="wp_options" export="true"]
+```
+
+Change localization with the parameter 'language', eg:
+```text
+[phpgrid table="wp_options" language="sv"]
+```
+The example above will show functions for a swedish grid.
+Supported languages: [Localization](http://www.phpgrid.org/docs/#localization)
+
 
 ![Shortcode](https://raw.github.com/EkAndreas/phpgrid/master/screenshot-1.jpg)
 

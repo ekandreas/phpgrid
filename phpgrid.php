@@ -21,6 +21,17 @@ class PHPGrid_Plugin{
 
     private $phpgrid_output;
 
+    private $add = false;
+    private $delete = false;
+    private $edit = false;
+    private $export = false;
+
+    private $hidden = array();
+
+    private $caption = '';
+
+    private $lang = '';
+
     /**
      * Activates actions
      */
@@ -49,10 +60,13 @@ class PHPGrid_Plugin{
      */
     function phpgrid_header()
     {
-
         global $post;
 
-        //if (!is_page()) return;
+        $ajax = false;
+
+        if (isset($_REQUEST['action']) && esc_attr( $_REQUEST['action'] ) == 'phpgrid_data' ){
+            $ajax = true;
+        }
 
         $grid_columns = array();
         $grid = array();
@@ -68,25 +82,59 @@ class PHPGrid_Plugin{
             $g = new jqgrid( $db_conf );
         }
 
-        // first, check if shortcode is used!
-        $pattern = get_shortcode_regex();
-        if (   preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )
-            && array_key_exists( 2, $matches )
-            && in_array( 'phpgrid', $matches[2] ) )
-        {
+        $regex_pattern = get_shortcode_regex();
+        preg_match ('/'.$regex_pattern.'/s', $post->post_content, $regex_matches);
+        if ($regex_matches[2] == 'phpgrid') {
+
+            $attribureStr = str_replace (" ", "&", trim ($regex_matches[3]));
+            $attribureStr = str_replace ('"', '', $attribureStr);
+
+            $defaults = array (
+            );
+            $attributes = wp_parse_args($attribureStr, $defaults);
 
             $column_names = array();
             $column_titles = array();
 
-            // loop through all attributes to check for the right one!
-            foreach( $matches[3] as $attributes ){
-
-                $table = $this->get_attribute( $attributes, 'table', $table );
-                $column_names = $this->get_attribute( $attributes, 'column_names', $grid_columns );
-                $column_titles = $this->get_attribute( $attributes, 'column_titles', $grid_columns );
-
+            if (isset($attributes['table'])){
+                $table = $attributes['table'];
             }
 
+            if (isset($attributes['columns'])){
+                $column_names = $attributes['columns'];
+            }
+
+            if (isset($attributes['titles'])){
+                $column_titles = $attributes['titles'];
+            }
+
+            if (isset($attributes['hidden'])){
+                $this->hidden = $attributes['hidden'];
+            }
+
+            if (isset($attributes['add'])){
+                $this->add = $attributes['add'];
+            }
+
+            if (isset($attributes['delete'])){
+                $this->delete = $attributes['delete'];
+            }
+
+            if (isset($attributes['edit'])){
+                $this->edit = $attributes['edit'];
+            }
+
+            if (isset($attributes['caption'])){
+                $this->caption = $attributes['caption'];
+            }
+
+            if (isset($attributes['export'])){
+                $this->export = $attributes['export'];
+            }
+
+            if (isset($attributes['language'])){
+                $this->lang = $attributes['language'];
+            }
 
             if ( !is_array( $column_names ) ) {
 
@@ -94,55 +142,37 @@ class PHPGrid_Plugin{
 
                 $colnames_arr = explode( ",", $column_names );
                 $coltitles = explode( ",", $column_titles );
+                $this->hidden = explode( ",", $this->hidden );
 
                 foreach( $colnames_arr as $key => $column ){
 
                     $col = array();
-                    $col["name"] = $column;
+                    $col['name'] = $column;
 
-                    if ( $coltitles[$key] ) $col["title"] = $coltitles[$key]; // caption of column
+                    if ( $coltitles[$key] ) $col['title'] = $coltitles[$key]; // caption of column
+
+                    //if ( in_array( $column, $this->hidden ) ) $col['hidden'] = true;
 
                     $cols[] = $col;
 
                 }
 
                 $grid_columns = $cols;
+
             }
 
         }
 
-        if ( isset( $_REQUEST['phpgrid_table'] ) ) $table = esc_attr( $_REQUEST['phpgrid_table'] );
-
-        $table = apply_filters( 'phpgrid_table', $table );
-
-        if ( empty( $table ) ) return;
-
-        $g->table = $table;
-
-        // set some standard options to grid. Override this with filter 'phpgrid_options'.
-        $grid["caption"] = $table;
-        $grid["multiselect"] = false;
-        $grid["autowidth"] = true;
-
-        // fetch if filter is used otherwise use standard options
-        $grid = apply_filters( 'phpgrid_options', $grid );
-
-        // now use ajax! this is a wp override!
-        $grid["url"] = admin_url( 'admin-ajax.php' ) . '?action=phpgrid_data&phpgrid_table=' . $table;
-
-        // set the options
-        $g->set_options( $grid );
-
         // set actions to the grid
         $actions = array(
-            "add"               => false,
-            "edit"              => false,
-            "delete"            => false,
+            "add"               => $this->add,
+            "edit"              => $this->edit,
+            "delete"            => $this->delete,
             "rowactions"        => false,
-            "export"            => true,
+            "export"            => $this->export,
             "autofilter"        => true,
             "search"            => "simple",
-            "inlineadd"         => false,
+            "inlineadd"         => $this->edit,
             "showhidecolumns"   => false
         );
 
@@ -150,8 +180,36 @@ class PHPGrid_Plugin{
         $actions = apply_filters( 'phpgrid_actions', $actions );
         $g->set_actions( $actions );
 
-        // set columns with filter
+
+        if ( $ajax && isset( $_REQUEST['phpgrid_table'] ) ) $table = esc_attr( $_REQUEST['phpgrid_table'] );
+
+        $table = apply_filters( 'phpgrid_table', $table );
+
+        if ( empty( $table ) ) return;
+
+        $g->table = $table;
+
         $g->set_columns( apply_filters( 'phpgrid_columns', $grid_columns ) );
+
+        if ( empty($this->caption) ) $this->caption = $table;
+
+        // set some standard options to grid. Override this with filter 'phpgrid_options'.
+        $grid["caption"] = $this->caption;
+        $grid["multiselect"] = false;
+        $grid["autowidth"] = true;
+
+        // fetch if filter is used otherwise use standard options
+        $grid = apply_filters( 'phpgrid_options', $grid );
+
+        // now use ajax! this is a wp override!
+        //$grid["url"] = admin_url( 'admin-ajax.php' ) . '?action=phpgrid_data&phpgrid_table=' . $table;
+
+        // set the options
+        $g->set_options( $grid );
+
+        if ( !empty( $this->lang ) ){
+            add_filter( 'phpgrid_lang', array($this, 'lang') );
+        }
 
         // subqueries are also supported now (v1.2)
         // $g->select_command = "select * from (select * from invheader) as o";
@@ -159,6 +217,14 @@ class PHPGrid_Plugin{
         // render grid, possible to override the name with filter 'phpgrid_name'.
         $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
 
+        if ( $ajax ){
+            die(0);
+        }
+
+    }
+
+    function lang(){
+        return $this->lang;
     }
 
     /**
@@ -206,16 +272,4 @@ class PHPGrid_Plugin{
         echo $this->phpgrid_output;
     }
 
-    function get_attribute( $all_attributes, $attribute, $default ){
-
-        $result = $default;
-
-        preg_match( '/' . $attribute . '="([^"]*)"/', $all_attributes, $attr );
-        if ( !empty( $attr[1] ) ) {
-            $result = $attr[1];
-        }
-
-        return $result;
-
-    }
 }
