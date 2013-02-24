@@ -28,11 +28,11 @@ Some of the features are:
 * Works in common browsers as IE8-10, Firefox, Chrome and Safari
 * ...
 
-Read more about all the features to phpgrid [here](http://www.phpgrid.org/features/)!
+Read more about all the [features to phpgrid here](http://www.phpgrid.org/features/)!
 
 We are currently using this plugin as a base component to other plugin development so it will be extended with more advanced functions.
 
-Join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
+Join our [Facebook Page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
 
 If you are a programmer:
 Please, read more at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "phpgrid")
@@ -65,11 +65,9 @@ Supported languages: [Localization](http://www.phpgrid.org/docs/#localization)
 
 
 == Installation ==
-1. Place the code inside the plugin folder as usual installation of WordPress plugins. The folder should be named "phpgrid".
+1. Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
 
-2. Download the free (or your paid) -version of phpgrid.org and place the lib folder under the plugin folder! Due to license rules we do not have the rights to provide you with the component.
-
-Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
+2. Download the free (or your paid) -version of phpgrid.org and place the **lib** folder under the **plugin** folder (plugins/phpgrid)! Due to license rules we do not have the rights to provide you with the component.
 
 == Screenshots ==
 1. Shortcode inside your post html editor.
@@ -81,6 +79,7 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 4. Implementation example, wp_options
 
 == Changelog ==
+
 = 0.5.3 =
 * easier column names and titles
 * ajax optimization
