@@ -39,35 +39,35 @@ Please, read more at GitHub repository: [phpgrid](https://github.com/EkAndreas/p
 
 *Shortcodes*
 You have to use the attribute 'table' to assign an existing database table. Eg,
-```text
+<code>
 [phpgrid table="wp_options"]
-```
+</code>
 
 *Optional shortcode attributes*
 Set columns use with the attribute 'columns' as in this example:
-```text
+<code>
 [phpgrid table="wp_options" columns="option_name,option_value"]
-```
+</code>
 
 If you like to set column titles use the attribute 'titles', eg:
-```text
+<code>
 [phpgrid table="wp_options" columns="option_name,option_value" titles="Name,Value"]
-```
+</code>
 
 Set the caption to the grid with the attribute 'caption', eg:
-```text
+<code>
 [phpgrid table="wp_options" caption="OPTIONS" columns="option_name,option_value" titles="Name,Value"]
-```
+</code>
 
 Enable expoprt to excel via parameter 'export', eg:
-```text
+<code>
 [phpgrid table="wp_options" export="true"]
-```
+</code>
 
 Change localization with the parameter 'language', eg:
-```text
+<code>
 [phpgrid table="wp_options" language="sv"]
-```
+</code>
 The example above will show functions for a swedish grid.
 Supported languages: [Localization](http://www.phpgrid.org/docs/#localization)
 
