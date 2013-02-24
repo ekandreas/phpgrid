@@ -4,7 +4,7 @@ Plugin Name: PHP Grid Control
 Plugin URI: http://www.phpgrid.org/
 Description: PHP Grid Control modified plugin from Abu Ghufran.
 Author: EkAndreas
-Version: 0.5.2
+Version: 0.5.3
 Author URI: http://www.flowcom.se/
 */
 

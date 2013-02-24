@@ -92,6 +92,7 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 = 0.5.3 =
 * easier column names and titles
 * ajax optimization
+* some more shortcodes
 
 = 0.5.2 =
 * sql connection with filter 'phpgrid_connection', read more at Github!
