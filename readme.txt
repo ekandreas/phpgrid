@@ -10,11 +10,13 @@ Expose database table with shortcodes and phpgrid.org.
 == Description ==
 
 This plugin implements the phpgrid control from phpgrid.org.
+
 With this you can expose any databas table or custom data as arrays to the frontend of your WordPress pages and posts.
 
 You will need the free or paid version of [phpgrid](http://www.phpgrid.org).
 
 Some of the features are:
+
 * Sorting
 * Add, delete, create data
 * Pagination
@@ -24,6 +26,7 @@ Some of the features are:
 * Export to PDF or Excel
 * Master and detail grids
 * ...
+
 Read more about all the features to phpgrid [here](http://www.phpgrid.org/features/)!
 
 We are currently using this plugin as a base component to other plugin development so it will be extended with more advanced functions.
@@ -31,6 +34,7 @@ We are currently using this plugin as a base component to other plugin developme
 Join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
 
 If you are a programmer:
+
 Please, read more at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "phpgrid")
 
 == Installation ==

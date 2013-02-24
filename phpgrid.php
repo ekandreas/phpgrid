@@ -49,6 +49,7 @@ class PHPGrid_Plugin{
      */
     function phpgrid_header()
     {
+
         global $post;
 
         //if (!is_page()) return;
