@@ -37,12 +37,14 @@ Join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060
 If you are a programmer:
 Please, read more at GitHub repository: [phpgrid](https://github.com/EkAndreas/phpgrid "phpgrid")
 
-*Shortcodes*
+**Shortcodes**
+
 You have to use the attribute 'table' to assign an existing database table. Eg,
 
 `[phpgrid table="wp_options"]`
 
-*Optional shortcode attributes*
+**Optional shortcode attributes**
+
 Set columns use with the attribute 'columns' as in this example:
 `[phpgrid table="wp_options" columns="option_name,option_value"]`
 
