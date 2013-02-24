@@ -41,11 +41,6 @@ Set the caption to the grid with the attribute 'caption', eg:
 [phpgrid table="wp_options" caption="OPTIONS" columns="option_name,option_value" titles="Name,Value"]
 ```
 
-Hide columns with the 'hidden' parameter (separate column names with commas), eg:
-```text
-[phpgrid table="wp_options" hidden="option_id"]
-```
-
 Enable expoprt to excel via parameter 'export', eg:
 ```text
 [phpgrid table="wp_options" export="true"]
