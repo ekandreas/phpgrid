@@ -278,7 +278,7 @@ function my_phpgrid_connection(){
 Read more about ADODB-connections at [phpgrid.org](http://www.phpgrid.org/docs/#adodb)
 
 ##### Switch example for several grids
-If you are using the grid in several places with different lookups you could implement a switch. This is how I solved it in my WordPress example:
+If you are using the grid in several places with different lookups you could implement a switch. This is how I solved it in my WordPress example placed in *functions.php*:
 ```php
 // add action to control on which page template we use at the moment
 // note the prio before 10!
@@ -314,6 +314,59 @@ function my_phpgrid_table_normal(){
 // return the database and table you like to connect to
 function my_phpgrid_table_external(){
     return 'mydatabasename.mytablename';
+}
+
+
+// return an array with the connection data
+function my_phpgrid_connection(){
+    $db_conf = array();
+    $db_conf["type"]        = 'mysql'; // mysql,oci8(for oracle),mssql,postgres,sybase
+    $db_conf["server"]      = 'localhost';
+    $db_conf["user"]        = 'root';
+    $db_conf["password"]    = 'pass';
+    $db_conf["database"]    = 'my-database-name';
+    return $db_conf;
+}
+?>
+```
+
+##### Custom SQL Command
+Perhaps you need a specific SQL-command to the grid?. This is how I solved it in my WordPress example placed in *functions.php*:
+```php
+// add action to control on which page template we use at the moment
+// note the prio before 10!
+add_action( 'template_redirect', 'my_phpgrid_switch', 9 );
+
+// our switch function to decide table and connection
+function my_phpgrid_switch(){
+
+    // check if the template on this page contains our file name
+    if ( strstr( get_page_template(), 'phpgrid-connection.php' ) ){
+
+        // add a filter and connect it to your function
+        add_filter( 'phpgrid_table', 'my_phpgrid_table_external' );
+
+        // add filter for the grids connection filter
+        add_filter( 'phpgrid_connection', 'my_phpgrid_connection' );
+
+    }
+    else{
+
+        // add filter for the grids connection filter
+        add_filter( 'phpgrid_table', 'my_phpgrid_table_normal' );
+
+    }
+
+}
+
+// return the table name
+function my_phpgrid_table_normal(){
+    return 'wp_posts';
+}
+
+// return the database and table you like to connect to
+function my_phpgrid_table_external(){
+    return 'SELECT * FROM my_very_own_table WHERE name LIKE "a%" ';
 }
 
 
