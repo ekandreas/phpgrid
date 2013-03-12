@@ -332,9 +332,9 @@ function my_phpgrid_connection(){
 
 The template file contains the following code where the grid should render:
 ```php
-	<?php
-        do_action('phpgrid_output');
-  ?>
+<?php
+	do_action('phpgrid_output');
+?>
 ```
 
 
@@ -393,9 +393,9 @@ function my_phpgrid_connection(){
 
 The template file contains the following code where the grid should render:
 ```php
-	<?php
-        do_action('phpgrid_output');
-  ?>
+<?php
+	do_action('phpgrid_output');
+?>
 ```
 
 
