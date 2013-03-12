@@ -330,6 +330,14 @@ function my_phpgrid_connection(){
 ?>
 ```
 
+The template file contains the following code where the grid should render:
+```php
+	<?php
+        do_action('phpgrid_output');
+  ?>
+```
+
+
 ##### Custom SQL Command
 Perhaps you need a specific SQL-command to the grid?. This is how I solved it in my WordPress example placed in *functions.php*:
 ```php
@@ -382,6 +390,14 @@ function my_phpgrid_connection(){
 }
 ?>
 ```
+
+The template file contains the following code where the grid should render:
+```php
+	<?php
+        do_action('phpgrid_output');
+  ?>
+```
+
 
 
 Please, join our [fb-page](https://www.facebook.com/pages/Phpgrid-for-WP/486409724756060) for support and discussions!
