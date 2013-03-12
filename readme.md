@@ -93,7 +93,11 @@ Provide the control with another look via different jquery-ui roller themes!
 There are two different filters to use for managing the theme; 'phpgrid_theme' for just changing to one of the provided themes and 'phpgrid_theme_script' to change the loaded jquery-ui roller theme file.
 
 ##### phpgrid_theme
-You could set the theme name via the 'phpgrid_theme' filter, eg:
+You could set the theme name via the 'phpgrid_theme' filter.
+
+Filter: **phpgrid_theme**
+
+Example code:
 ```php
 <?php
 function my_phpgrid_theme(){
@@ -105,7 +109,11 @@ add_filter( 'phpgrid_theme', 'my_phpgrid_theme' );
 Standard is 'redmond'. You can find more examples here: [Grid Options](http://www.phpgrid.org/docs/#grid-options)
 
 ##### phpgrid_theme_script
-You could set the theme script via the 'phpgrid_theme_script' filter, eg:
+You could set the theme script via the 'phpgrid_theme_script' filter.
+
+Filter: **phpgrid_theme_script**
+
+Example code:
 ```php
 <?php
 function my_phpgrid_theme_script(){
@@ -117,6 +125,8 @@ add_filter( 'phpgrid_theme_script', 'my_phpgrid_theme_script' );
 
 #### Options
 Options is used to customize the grid control in general.
+
+Filter: **phpgrid_options**
 
 Override the grid control options with the filter 'phpgrid_options', eg:
 ```php
@@ -134,6 +144,8 @@ You can find more examples here: [Grid Options](http://www.phpgrid.org/docs/#gri
 
 #### Actions
 Actions is used to set general features to the grid control.
+
+Filter: **phpgrid_actions**
 
 Override the grid control actions with the filter 'phpgrid_actions', eg:
 ```php
@@ -176,6 +188,8 @@ $actions = array(
 Table is the data source.
 **Note!** To use arrays you have to use the paid professional version of phpgrid control! Just replace the files under the 'lib' folder to upgrade.
 
+Filter: **phpgrid_table**
+
 Override the grid control table source with the filter 'phpgrid_table', eg:
 ```php
 <?php
@@ -189,6 +203,9 @@ You can find more examples here: [Getting started](http://www.phpgrid.org/docs/#
 
 #### Columns
 Columns is used to define your own column settings.
+
+Filter: **phpgrid_columns**
+
 Override the grid control column settings with the filter 'phpgrid_columns', eg:
 ```php
 <?php
@@ -207,6 +224,9 @@ You can find more examples here: [Column Options](http://www.phpgrid.org/docs/#c
 
 #### Name
 The name or id of the control when rendered on page.
+
+Filter: **phpgrid_name**
+
 Override the grid control id name with the filter 'phpgrid_name', eg:
 ```php
 <?php
@@ -224,7 +244,11 @@ Provide the control with localization support!
 There are two different filters to use for managing the localization; 'phpgrid_lang' for just changing to one of the provided languages and 'phpgrid_lang_script' to change the loaded localization script.
 
 ##### phpgrid_lang
-You could set the theme name via the 'phpgrid_lang' filter, eg:
+You could set the theme name via the 'phpgrid_lang' filter.
+
+Filter: **phpgrid_lang**
+
+Example code:
 ```php
 <?php
 function my_phpgrid_lang(){
@@ -235,7 +259,11 @@ add_filter( 'phpgrid_lang', 'my_phpgrid_lang' );
 ```
 
 ##### phpgrid_lang_script
-You could set the theme script via the 'phpgrid_lang_script' filter, eg:
+You could set the theme script via the 'phpgrid_lang_script' filter.
+
+Filter: **phpgrid_lang_script**
+
+Example code:
 ```php
 <?php
 function my_phpgrid_lang_script(){
@@ -248,6 +276,8 @@ You can find more examples here: [Localization](http://www.phpgrid.org/docs/#loc
 
 ##### Set another sql connection
 (New in version 0.5.2)
+
+Filter: **phpgrid_connection**
 
 Change the database connection for the grid via hook "phpgrid_connection", eg:
 ```php
@@ -278,7 +308,11 @@ function my_phpgrid_connection(){
 Read more about ADODB-connections at [phpgrid.org](http://www.phpgrid.org/docs/#adodb)
 
 ##### Switch example for several grids
-If you are using the grid in several places with different lookups you could implement a switch. This is how I solved it in my WordPress example placed in *functions.php*:
+If you are using the grid in several places with different lookups you could implement a switch.
+
+Filter: **phpgrid_table**
+
+This is how I solved it in my WordPress example placed in **functions.php**:
 ```php
 // add action to control on which page template we use at the moment
 // note the prio before 10!
@@ -339,7 +373,11 @@ The template file contains the following code where the grid should render:
 
 
 ##### Custom SQL Command
-Perhaps you need a specific SQL-command to the grid?. This is how I solved it in my WordPress example placed in *functions.php*:
+Perhaps you need a specific SQL-command to the grid?
+
+Filter: **phpgrid_select_command**
+
+This is how I solved it in my WordPress example placed in *functions.php*:
 ```php
 // add action to control on which page template we use at the moment
 // note the prio before 10!
