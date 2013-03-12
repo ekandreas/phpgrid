@@ -80,6 +80,9 @@ Supported languages: [Localization](http://www.phpgrid.org/docs/#localization)
 
 == Changelog ==
 
+= 0.5.4 =
+* select_command implemented
+
 = 0.5.3 =
 * easier column names and titles
 * ajax optimization

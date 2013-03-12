@@ -4,7 +4,7 @@ Plugin Name: PHP Grid Control
 Plugin URI: http://www.phpgrid.org/
 Description: PHP Grid Control modified plugin from Abu Ghufran.
 Author: EkAndreas
-Version: 0.5.3
+Version: 0.5.4
 Author URI: http://www.flowcom.se/
 */
 
@@ -63,6 +63,7 @@ class PHPGrid_Plugin{
         global $post;
 
         $ajax = false;
+				$external_connection = false;
 
         if (isset($_REQUEST['action']) && esc_attr( $_REQUEST['action'] ) == 'phpgrid_data' ){
             $ajax = true;
@@ -73,6 +74,7 @@ class PHPGrid_Plugin{
 
         // set database table for CRUD operations, override with filter 'phpgrid_table'.
         $table = '';
+				$select_command = '';
 
         $g = new jqgrid();
 
@@ -80,6 +82,7 @@ class PHPGrid_Plugin{
 
         if ( is_array( $db_conf ) ){
             $g = new jqgrid( $db_conf );
+						$external_connection = true;
         }
 
         $regex_pattern = get_shortcode_regex();
@@ -180,14 +183,29 @@ class PHPGrid_Plugin{
         $actions = apply_filters( 'phpgrid_actions', $actions );
         $g->set_actions( $actions );
 
+				if ( $ajax && isset( $_REQUEST['phpgrid_select_command'] ) ) $select_command = esc_attr( $_REQUEST['phpgrid_select_command'] );
 
-        if ( $ajax && isset( $_REQUEST['phpgrid_table'] ) ) $table = esc_attr( $_REQUEST['phpgrid_table'] );
+				$select_command = apply_filters( 'phpgrid_select_command', $select_command );
+
+				if ( $ajax && isset( $_REQUEST['phpgrid_table'] ) ) $table = esc_attr( $_REQUEST['phpgrid_table'] );
 
         $table = apply_filters( 'phpgrid_table', $table );
 
-        if ( empty( $table ) ) return;
+        if ( !empty( $table ) ) {
 
-        $g->table = $table;
+					$g->table = $table;
+
+				}
+				else if ( !empty( $select_command ) ) {
+
+					$g->select_command = $select_command;
+
+				}
+				else {
+
+					return;
+
+				}
 
         $g->set_columns( apply_filters( 'phpgrid_columns', $grid_columns ) );
 
@@ -216,6 +234,12 @@ class PHPGrid_Plugin{
 
         // render grid, possible to override the name with filter 'phpgrid_name'.
         $this->phpgrid_output = $g->render( apply_filters( 'phpgrid_name', 'phpgrid1' ) );
+
+				//swiching back to WP
+				if ( $external_connection ){
+					mysql_connect( DB_HOST, DB_USER, DB_PASSWORD );
+					mysql_select_db( DB_NAME );
+				}
 
         if ( $ajax ){
             die(0);
